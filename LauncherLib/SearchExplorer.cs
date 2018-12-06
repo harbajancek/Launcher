@@ -12,52 +12,77 @@ namespace LauncherLib
     {
         public string SearchDirectoryPath = @"D:\harbaja16\";
 
-        public void Search()
+        public IEnumerable<LauncherShortcut> Search()
         {
-            List<string> exePaths = new List<string>();
+            List<LauncherShortcut> shortcuts = new List<LauncherShortcut>();
 
             foreach (var item in Directory.GetFiles(SearchDirectoryPath, "*.csproj", SearchOption.AllDirectories))
             {
-                
 
-                XDocument dox = XDocument.Parse(File.ReadAllText(item));
+                LauncherShortcut shortcut = new LauncherShortcut();
 
-                //var group = dox.Descendants().Descendants().Where(n => n.Attribute("Condition").Value == " '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ").FirstOrDefault();
+                XDocument xdoc = XDocument.Parse(File.ReadAllText(item));
 
-                /*var basicProperty = dox
-                    .Descendants()
+                var propertyWithAssemblyName = xdoc
                     .Descendants()
                     .Where(
-                        n => n.Name.LocalName == "PropertyGroup" && 
-                        n.Descendants("AssemblyName").Any())
-                    .FirstOrDefault();*/
+                        n => n.Name.LocalName == "PropertyGroup" &&
+                        n.Descendants().Any(nS => nS.Name.LocalName == "AssemblyName"))
+                    .FirstOrDefault();
 
-                var basicProperty = dox
+                var propertyWithReleaseOutputPath = xdoc
                     .Descendants()
                     .Descendants()
                     .Where(
                         n => n.Name.LocalName == "PropertyGroup" &&
-                        n.Descendants("AssemblyName").Any())// tohle nefunguje
+                        n.HasAttributes && n.Attribute("Condition").Value.Any() &&
+                        n.Descendants().Where(nS => nS.Name.LocalName == "Optimize" && nS.Value == "true").Any())
                     .FirstOrDefault();
 
-                var releaseProperty = dox
+                var propertyWithDebugOutputPath = xdoc
                     .Descendants()
                     .Descendants()
                     .Where(
                         n => n.Name.LocalName == "PropertyGroup" &&
-                        n.HasAttributes && n.Attribute("Condition").Value == " '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ")
+                        n.HasAttributes && n.Attribute("Condition").Value.Any() &&
+                        n.Descendants().Where(nS => nS.Name.LocalName == "Optimize" && nS.Value == "false").Any())
                     .FirstOrDefault();
 
-                if (releaseProperty != null && basicProperty != null)
+                if (propertyWithAssemblyName != null && propertyWithReleaseOutputPath != null && propertyWithDebugOutputPath != null)
                 {
-                    var node = releaseProperty.Descendants().Where(n => n.Name.LocalName == "OutputPath").FirstOrDefault();
+                    string debugOutputPath = propertyWithDebugOutputPath
+                        .Descendants()
+                        .Where(n => n.Name.LocalName == "OutputPath")
+                        .FirstOrDefault()
+                        .Value;
 
-                    if (node != null)
+                    string releaseOutputPath = propertyWithReleaseOutputPath
+                        .Descendants()
+                        .Where(n => n.Name.LocalName == "OutputPath")
+                        .FirstOrDefault()
+                        .Value;
+
+                    string assemblyName = propertyWithAssemblyName
+                        .Descendants()
+                        .Where(n => n.Name.LocalName == "AssemblyName")
+                        .FirstOrDefault()
+                        .Value;
+
+                    string exePathDebug = Path.GetDirectoryName(item) + @"\" + debugOutputPath + assemblyName + ".exe";
+                    string exePathRelease = Path.GetDirectoryName(item) + @"\" + releaseOutputPath + assemblyName + ".exe";
+
+                    if (File.Exists(exePathRelease))
                     {
-                        Console.WriteLine(Path.GetDirectoryName(item) + @"\" + node.Value + basicProperty.Descendants("AssemblyName").FirstOrDefault().Value);
+                        shortcuts.Add(exePathRelease);
+                    }
+                    else if (File.Exists(exePathDebug))
+                    {
+                        shortcuts.Add(exePathDebug);
                     }
                 }
             }
+
+            shortcuts.ForEach(item => Console.WriteLine(item));
             
         }
     }
