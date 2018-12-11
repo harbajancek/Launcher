@@ -1,5 +1,4 @@
-﻿using LauncherLib;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,13 +16,18 @@ using System.Windows.Shapes;
 namespace Launcher
 {
     /// <summary>
-    /// Interakční logika pro MainWindow.xaml
+    /// Interakční logika pro DirectoryPick.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class DirectoryPick : Page
     {
-        public MainWindow()
+        public DirectoryPick()
         {
             InitializeComponent();
+        }
+
+        private void SendDirectoryInput(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

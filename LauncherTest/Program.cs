@@ -14,7 +14,12 @@ namespace LauncherTest
             FileHelper fileHelper = new FileHelper();
             SearchExplorer searchExplorer = new SearchExplorer();
 
-            searchExplorer.Search();
+            List<LauncherSolutionShortcut> lssList = (List<LauncherSolutionShortcut>)searchExplorer.Search();
+
+            foreach (var item in lssList)
+            {
+                ShortcutDebug.PrintSolutionShortcutInfo(item);
+            }
         }
     }
 }
