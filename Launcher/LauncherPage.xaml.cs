@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Drawing;
+using System.Diagnostics;
 using LauncherLib;
 
 namespace Launcher
@@ -26,10 +28,10 @@ namespace Launcher
         public LauncherPage(string directory)
         {
             search.SearchDirectoryPath = directory;
-
+            InitializeComponent();
             InsertShortcuts();
 
-            InitializeComponent();
+            
         }
 
         private void InsertShortcuts()
@@ -38,22 +40,47 @@ namespace Launcher
 
             foreach (var lss in lssList)
             {
-                StackPanel sp = new StackPanel();
+                StackPanel lw = new StackPanel();
+                lw.Orientation = Orientation.Horizontal;
+                lw.Margin = new Thickness(0, 0, 0, 5);
 
                 foreach (var lps in lss.ProjectShortcuts)
                 {
-                    Button btn = new Button();
+                    if (!lps.HasExe)
+                    {
+                        continue;
+                    }
+                    Button btn = new Button() { Margin = new Thickness(5), Width = 64, Height = 64, Background = null/*, BorderBrush = null*/};
+                    StackPanel sp2 = new StackPanel();
 
-                    btn.Content = lps.ExePath;
+                    TextBlock text = new TextBlock()
+                    {
+                        Text = lps.Name,
+                        FontSize = 10
+                    };
+
+                    btn.Content = sp2;
                     btn.Click += delegate (object sender, RoutedEventArgs e) { launch(lps.ExePath, sender, e); };
-                    // pridat button do stackpanelu
+
+                    Image img = new Image();
+                    img.Height = 32;
+                    img.Width = 32;
+                    
+
+                    img.Source =
+                    sp2.Children.Add(img);
+
+                    sp2.Children.Add(text);
+                    lw.Children.Add(btn);
                 }
+
+                ShortcutPanel.Children.Add(lw);
             }
         }
 
         private void launch(string path, object sender, RoutedEventArgs e)
         {
-            // launch
+            Process.Start(path);
         }
     }
 }

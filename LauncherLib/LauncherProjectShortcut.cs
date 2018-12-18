@@ -165,38 +165,6 @@ namespace LauncherLib
                 
             }
         }
-        public string IconPath
-        {
-            get
-            {
-                try
-                {
-                    return ProjectDirectory + xdoc
-                        .Descendants()
-                        .Descendants()
-                        .Where(n => n.Name.LocalName == "ItemGroup" &&
-                        n.Descendants().Where(nS => nS.Name.LocalName == "Resource" && nS.FirstAttribute.Value.Contains(".ico")).Any())
-                        .FirstOrDefault()
-                        .Descendants()
-                        .Where(n => n.Name.LocalName == "Resource")
-                        .FirstOrDefault()
-                        .Attribute("Include")
-                        .Value;
-                }
-                catch (Exception)
-                {
-                    return null;
-                }
-            }
-        }
-
-        public bool HasIcon
-        {
-            get
-            {
-                return IconPath != null;
-            }
-        }
 
         public bool HasExe
         {
