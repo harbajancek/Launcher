@@ -166,6 +166,8 @@ namespace LauncherLib
             }
         }
 
+
+
         public bool HasExe
         {
             get

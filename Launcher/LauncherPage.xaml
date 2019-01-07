@@ -9,7 +9,9 @@
       Title="LauncherPage">
 
     <ScrollViewer>
-        <StackPanel x:Name="ShortcutPanel" CanVerticallyScroll="True"/>
+        <StackPanel x:Name="ShortcutPanel" CanVerticallyScroll="True">
+            
+        </StackPanel>
     </ScrollViewer>
     
 </Page>

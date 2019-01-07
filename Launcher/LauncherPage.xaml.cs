@@ -62,12 +62,12 @@ namespace Launcher
                     btn.Content = sp2;
                     btn.Click += delegate (object sender, RoutedEventArgs e) { launch(lps.ExePath, sender, e); };
 
-                    Image img = new Image();
+                    System.Windows.Controls.Image img = new System.Windows.Controls.Image();
                     img.Height = 32;
                     img.Width = 32;
                     
 
-                    img.Source =
+                    img.Source = 
                     sp2.Children.Add(img);
 
                     sp2.Children.Add(text);

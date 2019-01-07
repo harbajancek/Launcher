@@ -14,11 +14,6 @@ namespace LauncherLib
             {
                 Console.Write("\tExePath: {0}\n", lps.ExePath);
             }
-
-            if (lps.HasIcon)
-            {
-                Console.Write("\tIconPath: {0}\n", lps.IconPath);
-            }
         }
 
         public static void PrintSolutionShortcutInfo(LauncherSolutionShortcut lss)

@@ -13,6 +13,7 @@ namespace LauncherTest
         {
             FileHelper fileHelper = new FileHelper();
             SearchExplorer searchExplorer = new SearchExplorer();
+            searchExplorer.SearchDirectoryPath = @"C:\Users\harbja\Source\Repos\";
 
             List<LauncherSolutionShortcut> lssList = (List<LauncherSolutionShortcut>)searchExplorer.Search();
 
