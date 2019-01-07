@@ -10,24 +10,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Launcher
 {
     /// <summary>
-    /// Interakční logika pro DirectoryPick.xaml
+    /// Interakční logika pro SearchDirectoryPopupWindow.xaml
     /// </summary>
-    public partial class DirectoryPick : Page
+    public partial class SearchDirectoryPopupWindow : Window
     {
-        public DirectoryPick()
+        public SearchDirectoryPopupWindow()
         {
             InitializeComponent();
         }
 
-        private void SendDirectoryInput(object sender, RoutedEventArgs e)
+        private void ReturnDirectory(object sender, RoutedEventArgs e)
         {
-
+            Close();
         }
     }
 }

@@ -56,10 +56,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="DirectoryPick.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Compile Include="SearchDirectoryPopupWindow.xaml.cs">
+      <DependentUpon>SearchDirectoryPopupWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="LauncherPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -72,9 +71,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DirectoryPick.xaml.cs">
-      <DependentUpon>DirectoryPick.xaml</DependentUpon>
-    </Compile>
     <Compile Include="LauncherPage.xaml.cs">
       <DependentUpon>LauncherPage.xaml</DependentUpon>
     </Compile>
@@ -82,8 +78,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MoveDirPopupWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SearchDirectoryPopupWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MoveDirPopupWindow.xaml.cs">
+      <DependentUpon>MoveDirPopupWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

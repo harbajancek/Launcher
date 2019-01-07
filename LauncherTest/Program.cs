@@ -11,7 +11,8 @@ namespace LauncherTest
     {
         static void Main(string[] args)
         {
-            FileHelper fileHelper = new FileHelper();
+            /*
+            FileMethods fileHelper = new FileMethods();
             SearchExplorer searchExplorer = new SearchExplorer();
             searchExplorer.SearchDirectoryPath = @"C:\Users\harbja\Source\Repos\";
 
@@ -20,7 +21,10 @@ namespace LauncherTest
             foreach (var item in lssList)
             {
                 ShortcutDebug.PrintSolutionShortcutInfo(item);
-            }
+            }*/
+
+            //FileMethods.MoveDirectory(@"C:\Users\harbja\Desktop\test", @"C:\Users\harbja\testfesnhtfbg");
+            //FileMethods.DeleteDirectory(@"C:\Users\harbja\testfesnhtfbg\test");
         }
     }
 }
