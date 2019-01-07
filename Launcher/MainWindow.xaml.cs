@@ -25,7 +25,7 @@ namespace Launcher
         {
             InitializeComponent();
 
-            LauncherPage page = new LauncherPage(@"D:\harbaja16\");
+            LauncherPage page = new LauncherPage(@"C:\Users\harbja\source\repos");
             myFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
             myFrame.Navigate(page);
         }

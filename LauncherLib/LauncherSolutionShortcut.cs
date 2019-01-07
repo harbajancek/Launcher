@@ -33,6 +33,16 @@ namespace LauncherLib
             }
         }
 
+        public string Name
+        {
+            get
+            {
+                string[] splitString = SolutionPath.Split(char.Parse("\\"));
+
+                return splitString[splitString.Length-1];
+            }
+        }
+
         private List<string> getProjectPaths()
         {
             List<string> ProjectPaths = new List<string>();

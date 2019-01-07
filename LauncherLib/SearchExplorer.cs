@@ -10,13 +10,12 @@ namespace LauncherLib
 {
     public class SearchExplorer
     {
-        public string SearchDirectoryPath = @"D:\harbaja16\";
 
-        public IEnumerable<LauncherSolutionShortcut> Search()
+        public IEnumerable<LauncherSolutionShortcut> Search(string searchDirectoryPath)
         {
             List<LauncherSolutionShortcut> shortcuts = new List<LauncherSolutionShortcut>();
 
-            foreach (var item in Directory.GetFiles(SearchDirectoryPath, "*.sln", SearchOption.AllDirectories))
+            foreach (var item in Directory.GetFiles(searchDirectoryPath, "*.sln", SearchOption.AllDirectories))
             {
                 LauncherSolutionShortcut lss = new LauncherSolutionShortcut();
                 lss.SolutionPath = item;
