@@ -86,8 +86,20 @@ namespace Launcher
             };
             deleteSolutionItem.Click += delegate (object sender, RoutedEventArgs e) { deleteSolution(lss.SolutionDirectory); };
 
+            MenuItem moveSolutionItem = new MenuItem()
+            {
+                Header = "Move solution"
+            };
+            moveSolutionItem.Click += delegate (object sender, RoutedEventArgs e)
+            {
+                MoveDirPopupWindow window = new MoveDirPopupWindow(lss.SolutionDirectory);
+                window.ShowDialog();
+                Refresh();
+            };
+
             options.Items.Add(copyPathClipItem);
             options.Items.Add(deleteSolutionItem);
+            options.Items.Add(moveSolutionItem);
 
             labelPanel.Children.Add(LsolutionName);
             labelPanel.Children.Add(LsolutionDirectoryPath);
