@@ -71,7 +71,7 @@ namespace Launcher
             if (projectsPanel.Children.Count == 0)
             {
                 Label noProjects = new Label();
-                noProjects.Content = "No projects in solution.";
+                noProjects.Content = "No projects with release or debug .exe file in solution.";
 
                 projectsPanel.Children.Add(noProjects);
             }
