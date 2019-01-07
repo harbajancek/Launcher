@@ -51,10 +51,49 @@ namespace Launcher
             StackPanel mainPanel = new StackPanel();
             mainPanel.Orientation = Orientation.Vertical;
 
-            Label solutionName = new Label();
-            solutionName.Content = lss.Name;
+            StackPanel labelPanel = new StackPanel();
+            labelPanel.Orientation = Orientation.Vertical;
 
-            mainPanel.Children.Add(solutionName);
+            Label LsolutionName = new Label()
+            {
+                Content = lss.Name
+            };
+
+            Label LsolutionDirectoryPath = new Label()
+            {
+                Content = lss.SolutionDirectory
+            };
+
+            Menu lssOptions = new Menu();
+            lssOptions.Background = null;
+
+            MenuItem options = new MenuItem()
+            {
+                Header = "..."
+            };
+
+            lssOptions.Items.Add(options);
+
+            MenuItem copyPathClipItem = new MenuItem()
+            {
+                Header = "Copy path to clipboard",
+            };
+            copyPathClipItem.Click += delegate (object sender, RoutedEventArgs e) { Clipboard.SetText(lss.SolutionDirectory); };
+
+            MenuItem deleteSolutionItem = new MenuItem()
+            {
+                Header = "Delete solution",
+            };
+            deleteSolutionItem.Click += delegate (object sender, RoutedEventArgs e) { deleteSolution(lss.SolutionDirectory); };
+
+            options.Items.Add(copyPathClipItem);
+            options.Items.Add(deleteSolutionItem);
+
+            labelPanel.Children.Add(LsolutionName);
+            labelPanel.Children.Add(LsolutionDirectoryPath);
+            labelPanel.Children.Add(lssOptions);
+
+            mainPanel.Children.Add(labelPanel);
 
             StackPanel projectsPanel = new StackPanel();
             projectsPanel.Orientation = Orientation.Horizontal;
@@ -126,6 +165,22 @@ namespace Launcher
         private void launch(string path, object sender, RoutedEventArgs e)
         {
             Process.Start(path);
+        }
+
+        private void deleteSolution(string directory)
+        {
+            if (MessageBox.Show("Are you sure? Solution will be completely deleted.", "Warning", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+            {
+                FileMethods.DeleteDirectory(directory);
+            }
+
+            Refresh();
+        }
+
+        private void Refresh()
+        {
+            ShortcutPanel.Children.RemoveRange(0, ShortcutPanel.Children.Count);
+            InsertShortcuts();
         }
     }
 }

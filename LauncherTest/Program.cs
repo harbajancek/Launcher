@@ -24,6 +24,7 @@ namespace LauncherTest
             }*/
 
             //FileMethods.MoveDirectory(@"C:\Users\harbja\Desktop\test", @"C:\Users\harbja\testfesnhtfbg");
+            //FileMethods.DeleteDirectory(@"C:\Users\harbja\testfesnhtfbg\test");
         }
     }
 }

@@ -47,5 +47,42 @@ namespace LauncherLib
 
             Directory.Move(sourcePath, destinationPath+@"\"+directoryName);
         }
+
+        public static void DeleteDirectory(string directoryPath)
+        {
+            DirectoryInfo directoryPathInfo = new DirectoryInfo(directoryPath);
+
+            foreach (FileInfo file in directoryPathInfo.EnumerateFiles())
+            {
+                try
+                {
+                    file.Delete();
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
+                
+            }
+            foreach (DirectoryInfo dir in directoryPathInfo.EnumerateDirectories())
+            {
+                try
+                {
+                    dir.Delete(true);
+                }
+                catch (Exception)
+                {
+                }
+                
+            }
+
+            try
+            {
+                directoryPathInfo.Delete();
+            }
+            catch (Exception)
+            {
+            }
+        }
     }
 }
