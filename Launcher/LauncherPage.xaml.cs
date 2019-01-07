@@ -27,16 +27,41 @@ namespace Launcher
         SearchExplorer search = new SearchExplorer();
         string searchDirectory;
 
-        public LauncherPage(string directory)
+        public LauncherPage()
         {
-            searchDirectory = directory;
+            SearchDirectoryPopupWindow popupWindow = new SearchDirectoryPopupWindow();
+            popupWindow.ShowDialog();
+            searchDirectory = popupWindow.dirTextBox.Text;
+
             InitializeComponent();
+
+            SearchDirectoryPathLabel.Content = "Search directory: " + searchDirectory;
             InsertShortcuts();
+        }
+
+        private void changeSearchDirectory()
+        {
+            SearchDirectoryPopupWindow popupWindow = new SearchDirectoryPopupWindow();
+            popupWindow.dirTextBox.Text = searchDirectory;
+            popupWindow.ShowDialog();
+            searchDirectory = popupWindow.dirTextBox.Text;
+            SearchDirectoryPathLabel.Content = "Search directory: " + searchDirectory;
+            Refresh();
         }
 
         private void InsertShortcuts()
         {
             List<LauncherSolutionShortcut> lssList = (List<LauncherSolutionShortcut>)search.Search(searchDirectory);
+
+            if (lssList == null)
+            {
+                Label label = new Label()
+                {
+                    Content = "No solutions in this directory."
+                };
+                ShortcutPanel.Children.Add(label);
+                return;
+            }
 
             foreach (var lss in lssList)
             {
@@ -193,6 +218,16 @@ namespace Launcher
         {
             ShortcutPanel.Children.RemoveRange(0, ShortcutPanel.Children.Count);
             InsertShortcuts();
+        }
+
+        private void RefreshBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Refresh();
+        }
+
+        private void ChangeDirBtn_Click(object sender, RoutedEventArgs e)
+        {
+            changeSearchDirectory();
         }
     }
 }

@@ -7,11 +7,27 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="LauncherPage">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-    <ScrollViewer>
-        <StackPanel x:Name="ShortcutPanel" CanVerticallyScroll="True">
+        <StackPanel Grid.Row="0" Margin="5">
+            <Label x:Name="SearchDirectoryPathLabel" FontWeight="Bold"/>
+            <StackPanel Orientation="Horizontal">
+                <Button Margin="0,5,10,5" Padding="5" x:Name="RefreshBtn" Content="Refresh" Click="RefreshBtn_Click"/>
+                <Button Margin="0,5,10,5" Padding="5" x:Name="ChangeDirBtn" Content="Change search directory" Click="ChangeDirBtn_Click"/>
+            </StackPanel>
             
         </StackPanel>
-    </ScrollViewer>
+
+        <ScrollViewer Grid.Row="1">
+            <StackPanel x:Name="ShortcutPanel" CanVerticallyScroll="True">
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+    
     
 </Page>
